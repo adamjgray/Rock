@@ -16,6 +16,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Rock.ViewModels.Blocks.Lms.LearningActivityComponent;
 using Rock.ViewModels.Blocks.Lms.LearningActivityDetail;
@@ -34,9 +35,9 @@ namespace Rock.ViewModels.Blocks.Lms.LearningActivityCompletionDetail
         public LearningActivityBag ActivityBag { get; set; }
 
         /// <summary>
-        /// Gets or sets the completion JSON for the activity component.
+        /// The values available when displaying non-configuration screens.
         /// </summary>
-        public string ActivityComponentCompletionJson { get; set; }
+        public Dictionary<string, string> CompletionValues { get; set; }
 
         /// <summary>
         /// Gets or sets the available date for the activity instance.
@@ -127,7 +128,7 @@ namespace Rock.ViewModels.Blocks.Lms.LearningActivityCompletionDetail
         /// <summary>
         /// Gets or sets the number of points the student earned by completing the activity.
         /// </summary>
-        public int PointsEarned { get; set; }
+        public int? PointsEarned { get; set; }
 
         /// <summary>
         /// Gets or sets whether the activity requires a facilitator to grade/score it.

@@ -194,6 +194,7 @@
                         <template #placeholder>
                             <p class="text-muted">Tap here to select an activity</p>
                         </template>
+
                         <template #default="{ item }">
                             <div class="activity-item-content"
                                  :ref="(el) => addTooltip(el as Element)"
@@ -223,33 +224,49 @@
                             </div>
                         </template>
                     </CustomSelect>
+
                     <div class="workspace-main-content">
-                        <div class="workspace-main-content-header">
-                            <h3 class="workspace-main-content-title">
-                                {{ viewingCompletionBag.activityBag?.name ?? "" }}
-                            </h3>
-                            <div class="activity-time">
-                                {{ getActivityTimeText(viewingCompletionBag) }}
+                        <div v-if="showCompletedScreen"
+                             class="course-completed-content">
+                            <div>
+                                <i class="fa fa-check-circle fa-5x text-success"></i>
                             </div>
+
+                            <h2>Congratulations {{ currentPersonNickName }}!</h2>
+                            <p>You've successfully completed {{ config.courseName }}.</p>
                         </div>
 
-                        <div class="facilitator-comments-container" v-if="viewingCompletionBag.facilitatorComment">
-                            <NotificationBox alertType="info">
-                                <div class="facilitator-comment-label">
-                                    Facilitator Comment:
+                        <template v-else>
+                            <div class="workspace-main-content-header">
+                                <h3 class="workspace-main-content-title">
+                                    {{ viewingCompletionBag.activityBag?.name ?? "" }}
+                                </h3>
+                                <div class="activity-time">
+                                    {{ getActivityTimeText(viewingCompletionBag) }}
                                 </div>
-                                <div class="facilitator-comment-text">
-                                    {{ viewingCompletionBag.facilitatorComment }}
-                                </div>
-                            </NotificationBox>
+                            </div>
 
-                        </div>
-                        <activityTypeComponent
-                                               v-model:activityBag="viewingCompletionBag.activityBag"
-                                               v-model:completionBag="viewingCompletionBag"
-                                               :screenToShow="screenToShow"
-                                               @closed="onClosed"
-                                               @completed="onCompleted" />
+                            <div class="facilitator-comments-container" v-if="viewingCompletionBag.facilitatorComment">
+                                <NotificationBox alertType="info">
+                                    <div class="facilitator-comment-label">
+                                        Facilitator Comment:
+                                    </div>
+                                    <div class="facilitator-comment-text">
+                                        {{ viewingCompletionBag.facilitatorComment }}
+                                    </div>
+                                </NotificationBox>
+
+                            </div>
+
+                            <activityTypeComponent v-else
+                                                   :activityBag="viewingCompletionBag.activityBag"
+                                                   :completionBag="viewingCompletionBag"
+                                                   :screenToShow="screenToShow"
+                                                   @commentChanged="onCommentChanged"
+                                                   @completionValuesChanged="onCompletionValuesChanged"
+                                                   @closed="onClosed"
+                                                   @completed="onCompleted" />
+                        </template>
                     </div>
 
                 </template>
@@ -268,7 +285,7 @@
     import { LearningActivityCompletionBag } from "@Obsidian/ViewModels/Blocks/Lms/LearningActivityCompletionDetail/learningActivityCompletionBag";
     import { PublicLearningClassWorkspaceBox } from "@Obsidian/ViewModels/Blocks/Lms/PublicLearningClassWorkspace/publicLearningClassWorkspaceBox";
     import { RockDateTime } from "@Obsidian/Utility/rockDateTime";
-    import { ComponentScreen } from "@Obsidian/Controls/Internal/LearningActivity/learningActivity";
+    import { CompletionExtraValues, ComponentScreen } from "@Obsidian/Controls/Internal/LearningActivity/learningActivity";
     import { ConfigurationMode } from "@Obsidian/Enums/Lms/configurationMode";
     import { NavigationUrlKey } from "./PublicLearningClassWorkspace/types.partial";
     import { AvailabilityCriteria } from "@Obsidian/Enums/Lms/availabilityCriteria";
@@ -276,9 +293,11 @@
     import { RockColor } from "@Obsidian/Core/Utilities/rockColor";
     import { PromiseCompletionSource } from "@Obsidian/Utility/promiseUtils";
     import { tooltip } from "@Obsidian/Utility/tooltip";
+    import { useStore } from "@Obsidian/PageState";
 
     const config = useConfigurationValues<PublicLearningClassWorkspaceBox>();
     const invokeBlockAction = useInvokeBlockAction();
+    const store = useStore();
     onConfigurationValuesChanged(useReloadBlock());
 
     // #region Values
@@ -325,6 +344,7 @@
     const contentTabs = ref((config.contentPages ?? []).filter(c => (c.content ?? "").length > 0));
 
     const activityTypeComponent = ref<Component | null>(null);
+    const showCompletedScreen = ref(false);
 
     // #endregion
 
@@ -401,6 +421,10 @@
             .concat(contentTabs.value.map(t => t.title ?? "")
                 .filter(t => t.length > 0))
     );
+
+    const currentPersonNickName = computed((): string => {
+        return store.state.currentPerson?.nickName ?? "";
+    });
 
     // #endregion
 
@@ -544,9 +568,34 @@
 
     // #region Event Handlers
 
+    function onCommentChanged(comment: string): void {
+        const newValue = { ...viewingCompletionBag.value };
+
+        newValue.studentComment = comment;
+
+        viewingCompletionBag.value = newValue;
+    }
+
+    function onCompletionValuesChanged(values: Record<string, string>, extra?: CompletionExtraValues): void {
+        const newValue = { ...viewingCompletionBag.value };
+
+        newValue.completionValues = values;
+
+        if (extra) {
+            // We don't allow student to update points earned, so we don't check
+            // the pointsEarned value.
+
+            if (extra.binaryFile !== undefined) {
+                newValue.binaryFile = extra.binaryFile;
+            }
+        }
+
+        viewingCompletionBag.value = newValue;
+    }
+
     /**
      * Called when the activity component's closed emit is fired. Because completed
-     *  and closed may be called together - this event handler awaits the resolution
+     * and closed may be called together - this event handler awaits the resolution
      * of the completedPromiseSource (if the activity is not yet completed).
      */
     async function onClosed(): Promise<void> {
@@ -555,15 +604,20 @@
         }
 
         const currentIndex = activities.value.findIndex(a => a.learningActivityIdKey === viewingCompletionBag.value.learningActivityIdKey);
-        let nextAvailableActivity = activities.value?.find((a, i) => i > currentIndex && a.isAvailable);
+        let nextAvailableActivity = activities.value
+            ?.find((a, i) => i > currentIndex && a.isAvailable && !a.completedDate);
 
         // If there was no available activity after our index look for one before it (starting at the beginning).
         if (!nextAvailableActivity) {
-            nextAvailableActivity = activities.value?.find((a, i) => i < currentIndex && a.isAvailable);
+            nextAvailableActivity = activities.value
+                ?.find((a, i) => i < currentIndex && a.isAvailable && !a.completedDate);
         }
 
         if (nextAvailableActivity) {
             viewingCompletionBag.value = nextAvailableActivity;
+        }
+        else if (activities.value.every(a => a.completedDate)) {
+            showCompletedScreen.value = true;
         }
     }
 

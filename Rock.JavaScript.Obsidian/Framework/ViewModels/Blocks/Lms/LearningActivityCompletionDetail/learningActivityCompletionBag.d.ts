@@ -31,9 +31,6 @@ export type LearningActivityCompletionBag = {
     /** Gets or sets the Learning Activity Bag for this completion instance. */
     activityBag?: LearningActivityBag | null;
 
-    /** Gets or sets the completion JSON for the activity component. */
-    activityComponentCompletionJson?: string | null;
-
     /** Gets or sets the attributes. */
     attributes?: Record<string, PublicAttributeBag> | null;
 
@@ -54,6 +51,9 @@ export type LearningActivityCompletionBag = {
      * completed the related Rock.Model.LearningActivity.
      */
     completedDate?: string | null;
+
+    /** The values available when displaying non-configuration screens. */
+    completionValues?: Record<string, string> | null;
 
     /** Gets or sets the due date for the activity instance. */
     dueDate?: string | null;
@@ -98,7 +98,7 @@ export type LearningActivityCompletionBag = {
     learningActivityIdKey?: string | null;
 
     /** Gets or sets the number of points the student earned by completing the activity. */
-    pointsEarned: number;
+    pointsEarned?: number | null;
 
     /** Gets or sets whether the facilitator must complete the activity. */
     requiresFacilitatorCompletion: boolean;

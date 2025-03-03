@@ -184,6 +184,54 @@
     <Compile Include="Migrations\202502141632185_UpdatePeerNetworkLavaTemplate.Designer.cs">
       <DependentUpon>202502141632185_UpdatePeerNetworkLavaTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202502182025337_UpdateLMSPageName.cs" />
+    <Compile Include="Migrations\202502182025337_UpdateLMSPageName.Designer.cs">
+      <DependentUpon>202502182025337_UpdateLMSPageName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502191454371_AddPersonalizationSegmentCategories.cs" />
+    <Compile Include="Migrations\202502191454371_AddPersonalizationSegmentCategories.Designer.cs">
+      <DependentUpon>202502191454371_AddPersonalizationSegmentCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502191621368_AddCommunicationEntryWizardV2.cs" />
+    <Compile Include="Migrations\202502191621368_AddCommunicationEntryWizardV2.Designer.cs">
+      <DependentUpon>202502191621368_AddCommunicationEntryWizardV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502191712354_Rollup_20250219.cs" />
+    <Compile Include="Migrations\202502191712354_Rollup_20250219.designer.cs">
+      <DependentUpon>202502191712354_Rollup_20250219.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502191749233_CodeGenerated_20250219.cs" />
+    <Compile Include="Migrations\202502191749233_CodeGenerated_20250219.designer.cs">
+      <DependentUpon>202502191749233_CodeGenerated_20250219.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502211454363_AddSentNotificationCommunicationIdToLms.cs" />
+    <Compile Include="Migrations\202502211454363_AddSentNotificationCommunicationIdToLms.Designer.cs">
+      <DependentUpon>202502211454363_AddSentNotificationCommunicationIdToLms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502212003201_UpdatePointsEarnedInLmsToAllowNull.cs" />
+    <Compile Include="Migrations\202502212003201_UpdatePointsEarnedInLmsToAllowNull.Designer.cs">
+      <DependentUpon>202502212003201_UpdatePointsEarnedInLmsToAllowNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502242059540_SMSConversationsSwap.cs" />
+    <Compile Include="Migrations\202502242059540_SMSConversationsSwap.designer.cs">
+      <DependentUpon>202502242059540_SMSConversationsSwap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502261953147_UpdateLmsBlockSettingFieldTypes.cs" />
+    <Compile Include="Migrations\202502261953147_UpdateLmsBlockSettingFieldTypes.Designer.cs">
+      <DependentUpon>202502261953147_UpdateLmsBlockSettingFieldTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502270302319_AddDefaultChatGroupTypeRoles.cs" />
+    <Compile Include="Migrations\202502270302319_AddDefaultChatGroupTypeRoles.Designer.cs">
+      <DependentUpon>202502270302319_AddDefaultChatGroupTypeRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202502272125461_UpdateLMSClassPages.cs" />
+    <Compile Include="Migrations\202502272125461_UpdateLMSClassPages.Designer.cs">
+      <DependentUpon>202502272125461_UpdateLMSClassPages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments.cs" />
+    <Compile Include="Migrations\202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments.Designer.cs">
+      <DependentUpon>202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Version 16.0\Version 1.16.7\202411131526017_AddIsConcurrentCheckInPreventedToGroupType.cs" />
     <Compile Include="Migrations\Version 16.0\Version 1.16.7\202411131526017_AddIsConcurrentCheckInPreventedToGroupType.Designer.cs">
       <DependentUpon>202411131526017_AddIsConcurrentCheckInPreventedToGroupType.cs</DependentUpon>
@@ -2544,6 +2592,42 @@
     <EmbeddedResource Include="Migrations\202502141632185_UpdatePeerNetworkLavaTemplate.resx">
       <DependentUpon>202502141632185_UpdatePeerNetworkLavaTemplate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502182025337_UpdateLMSPageName.resx">
+      <DependentUpon>202502182025337_UpdateLMSPageName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502191454371_AddPersonalizationSegmentCategories.resx">
+      <DependentUpon>202502191454371_AddPersonalizationSegmentCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502191621368_AddCommunicationEntryWizardV2.resx">
+      <DependentUpon>202502191621368_AddCommunicationEntryWizardV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502191712354_Rollup_20250219.resx">
+      <DependentUpon>202502191712354_Rollup_20250219.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502191749233_CodeGenerated_20250219.resx">
+      <DependentUpon>202502191749233_CodeGenerated_20250219.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502211454363_AddSentNotificationCommunicationIdToLms.resx">
+      <DependentUpon>202502211454363_AddSentNotificationCommunicationIdToLms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502212003201_UpdatePointsEarnedInLmsToAllowNull.resx">
+      <DependentUpon>202502212003201_UpdatePointsEarnedInLmsToAllowNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502242059540_SMSConversationsSwap.resx">
+      <DependentUpon>202502242059540_SMSConversationsSwap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502261953147_UpdateLmsBlockSettingFieldTypes.resx">
+      <DependentUpon>202502261953147_UpdateLmsBlockSettingFieldTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502270302319_AddDefaultChatGroupTypeRoles.resx">
+      <DependentUpon>202502270302319_AddDefaultChatGroupTypeRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202502272125461_UpdateLMSClassPages.resx">
+      <DependentUpon>202502272125461_UpdateLMSClassPages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments.resx">
+      <DependentUpon>202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Version 16.0\Version 1.16.7\202411131526017_AddIsConcurrentCheckInPreventedToGroupType.resx">
       <DependentUpon>202411131526017_AddIsConcurrentCheckInPreventedToGroupType.cs</DependentUpon>
     </EmbeddedResource>
@@ -4265,6 +4349,7 @@
     <None Include="Migrations\Version 16.0\Version 1.16.7\202410101546296_AddDefaultCheckInAdvertisement_Image.jpg">
       <DependentUpon>202410101546296_AddDefaultCheckInAdvertisement.cs</DependentUpon>
     </None>
+    <Content Include="Migrations\202503011520245_AddNewCommunicationPreviewPageAndPersonalizationSegments_spCommunicationRecipientDetails.sql" />
     <Content Include="Migrations\202501152224140_ImprovePeerNetworkRelationshipTrends_spPeerNetwork_UpdateFollowing.sql" />
     <Content Include="Migrations\Version 16.0\Version 1.16.7\202410231736231_PledgeAnalyticsAndPledgeEntryEnhancements_spFinance_PledgeAnalyticsQuery.sql" />
     <Content Include="Migrations\Version 16.0\Version 1.16.7\202410231736231_PledgeAnalyticsAndPledgeEntryEnhancements_spFinance_PledgeAnalyticsQueryWithMultipleAccountIds.sql" />
