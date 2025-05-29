@@ -69,7 +69,13 @@ namespace Rock.Reporting.DataFilter
         {
             return new DynamicComponentDefinitionBag
             {
-                Url = requestContext.ResolveRockUrl( "~/Obsidian/Reporting/DataFilters/baseCampusFilter.obs" )
+                Url = requestContext.ResolveRockUrl( "~/Obsidian/Reporting/DataFilters/baseCampusFilter.obs" ),
+                Options = new Dictionary<string, string>
+                {
+                    { "multiple", "True" },
+                    { "label", CampusPickerLabel },
+                    { "includeInactive", IncludeInactive.ToTrueFalse() }
+                },
             };
         }
 
@@ -77,10 +83,6 @@ namespace Rock.Reporting.DataFilter
         public override Dictionary<string, string> GetObsidianComponentData( Type entityType, string selection, RockContext rockContext, RockRequestContext requestContext )
         {
             var result = new Dictionary<string, string>();
-
-            result.AddOrReplace( "multiple", "True" );
-            result.AddOrReplace( "label", CampusPickerLabel );
-            result.AddOrReplace( "includeInactive", IncludeInactive.ToTrueFalse() );
 
             if ( selection.IsNotNullOrWhiteSpace() )
             {
