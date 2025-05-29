@@ -22,6 +22,7 @@ using System.Web.UI;
 
 using Rock.Data;
 using Rock.Net;
+using Rock.ViewModels.Controls;
 using Rock.ViewModels.Utility;
 using Rock.Web.Cache;
 using Rock.Web.UI.Controls;
@@ -34,9 +35,6 @@ namespace Rock.Reporting.DataFilter
     public abstract class BaseCampusesFilter : DataFilterComponent
     {
         #region Properties
-
-        /// <inheritdoc/>
-        public override string ObsidianFileUrl => "~/Obsidian/Reporting/DataFilters/baseCampusFilter.obs";
 
         /// <summary>
         /// Gets a value indicating whether to include inactive campuses.
@@ -65,6 +63,15 @@ namespace Rock.Reporting.DataFilter
         #endregion
 
         #region Configuration
+
+        /// <inheritdoc/>
+        public override DynamicComponentDefinitionBag GetComponentDefinition( Type entityType, string selection, RockContext rockContext, RockRequestContext requestContext )
+        {
+            return new DynamicComponentDefinitionBag
+            {
+                Url = requestContext.ResolveRockUrl( "~/Obsidian/Reporting/DataFilters/baseCampusFilter.obs" )
+            };
+        }
 
         /// <inheritdoc/>
         public override Dictionary<string, string> GetObsidianComponentData( Type entityType, string selection, RockContext rockContext, RockRequestContext requestContext )
