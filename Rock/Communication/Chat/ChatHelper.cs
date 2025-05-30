@@ -1253,6 +1253,11 @@ namespace Rock.Communication.Chat
                             || lastSyncedChannel.CampusId != currentChannel.CampusId;
                     }
 
+                    bool HasChatNotificationModeChanged( ChatChannel lastSyncedChannel, ChatChannel currentChannel )
+                    {
+                        return lastSyncedChannel.ChatNotificationMode != currentChannel.ChatNotificationMode;
+                    }
+
                     foreach ( var rockChatGroup in rockChatGroups )
                     {
                         var channel = TryConvertToChatChannel( rockChatGroup );
@@ -1293,6 +1298,12 @@ namespace Rock.Communication.Chat
 
                                     // If this channel was previously inactive and is now being reactivated, trigger a group member sync.
                                     if ( !existingChannel.IsActive && channel.IsActive )
+                                    {
+                                        channelsToTriggerGroupMemberSync.Add( channel );
+                                    }
+
+                                    // If the chat notification mode has changed, we need to re-sync all of the members.
+                                    if( HasChatNotificationModeChanged( existingChannel, channel ) )
                                     {
                                         channelsToTriggerGroupMemberSync.Add( channel );
                                     }
@@ -2420,7 +2431,7 @@ namespace Rock.Communication.Chat
                                 || existingUser.IsProfileVisible != chatUser.IsProfileVisible
                                 || existingUser.IsOpenDirectMessageAllowed != chatUser.IsOpenDirectMessageAllowed
                                 || existingUser.CampusId != chatUser.CampusId;
-
+                            
                             if ( !shouldUpdate )
                             {
                                 // Only compare badges as a last resort, if no other props already forced an update.
