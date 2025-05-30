@@ -3802,7 +3802,7 @@ namespace Rock.Communication.Chat
             // Hard-code chat notification mode based on the parent group type.
             // We'll improve this logic in a future version of Rock.
             var chatNotificationMode = rockChatGroup.GroupTypeId == ChatSharedChannelGroupTypeId
-                ? ChatNotificationMode.MentionsAndReplies
+                ? ChatNotificationMode.Mentions
                 : ChatNotificationMode.AllMessages;
 
             return new ChatChannel
