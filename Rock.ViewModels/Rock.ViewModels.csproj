@@ -553,6 +553,8 @@
     <Compile Include="Blocks\Core\Notes\DeleteNoteRequestBag.cs" />
     <Compile Include="Blocks\Core\Notes\EditNoteRequestBag.cs" />
     <Compile Include="Blocks\WorkFlow\FormBuilder\FormBuilderDetailLinkToFormBag.cs" />
+    <Compile Include="Controls\IconDefinitionBag.cs" />
+    <Compile Include="Controls\IconSetBag.cs" />
     <Compile Include="Controls\NoteBag.cs" />
     <Compile Include="Controls\NoteEditBag.cs" />
     <Compile Include="Blocks\Core\Notes\NotesInitializationBox.cs" />
