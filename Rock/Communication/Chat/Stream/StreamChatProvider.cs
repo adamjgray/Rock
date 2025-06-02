@@ -734,6 +734,12 @@ namespace Rock.Communication.Chat
                     WebhookEvent.UserUnbanned,
 
                     WebhookEvent.UserDeleted
+                },
+
+                // Push version should be to set to v3. 
+                PushConfig = new PushConfigRequest
+                {
+                    Version = "v3"
                 }
             };
 
@@ -779,6 +785,21 @@ namespace Rock.Communication.Chat
 
                     await RetryAsync(
                         async () => await AppClient.UpsertPushProviderAsync( pushProviderRequest ),
+                        operationName
+                    );
+
+                    // For v3 push configuration, opt-in for the "message.new" event push template.
+                    var pushTemplateRequest = new PushTemplateRequest
+                    {
+                        EnablePush = true,
+                        EventType = "message.new",
+                        PushProviderName = pushProviderName,
+                        PushProviderType = PushProviderType.Firebase,
+                        Template = string.Empty
+                    };
+
+                    await RetryAsync(
+                        async () => await AppClient.UpsertPushTemplateAsync( pushTemplateRequest ),
                         operationName
                     );
                 }
