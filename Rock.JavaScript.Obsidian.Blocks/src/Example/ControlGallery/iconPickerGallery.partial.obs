@@ -1,0 +1,31 @@
+<template>
+    <GalleryAndResult :value="value" :importCode="importCode" :exampleCode="exampleCode" enableReflection>
+
+        <IconPicker v-model="value" label="Icon" />
+
+        <template #settings>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+            </div>
+        </template>
+    </GalleryAndResult>
+</template>
+
+<script setup lang="ts">
+    import { computed, ref } from "vue";
+    import GalleryAndResult from "./common/galleryAndResult.partial.obs";
+    import IconPicker from "@Obsidian/Controls/iconPicker.obs";
+    import { getSfcControlImportPath } from "./common/utils.partial";
+
+    const value = ref([]);
+    const someBool = ref(false);
+    const someVal = ref("hi");
+
+    const importCode = getSfcControlImportPath("iconPicker");
+    const exampleCode = computed(() => {
+        const someBoolProp = someBool.value ? " someBool" : "";
+        const someValProp = someVal.value ? ` someVal="${someVal.value}"` : "";
+        return `<IconPicker v-model="value"${someBoolProp}${someValProp} />`;
+    });
+</script>

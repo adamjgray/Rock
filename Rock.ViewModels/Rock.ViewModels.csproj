@@ -865,6 +865,7 @@
     <Compile Include="Rest\Controls\AIProviderPickerGetAIProviderOptionsBag.cs" />
     <Compile Include="Rest\Controls\AssetManagerExtractFileOptionsBag.cs" />
     <Compile Include="Rest\Controls\DataFilterFormatSelectionOptionsBag.cs" />
+    <Compile Include="Rest\Controls\DefinedValuePickerGetDefinedValuesOptionsBag.cs" />
     <Compile Include="Rest\Controls\EmailEditorCreateAttendanceOccurrenceOptionsBag.cs" />
     <Compile Include="Rest\Controls\EmailEditorAttendanceOccurrenceBag.cs" />
     <Compile Include="Rest\Controls\EmailEditorGetAllEmailSectionsOptionsBag.cs" />
@@ -1129,7 +1130,7 @@
     <Compile Include="Rest\Controls\BadgeComponentPickerGetBadgeComponentsOptionsBag.cs" />
     <Compile Include="Rest\Controls\BadgeListGetBadgesOptionsBag.cs" />
     <Compile Include="Rest\Controls\CategorizedValuePickerGetTreeOptionsBag.cs" />
-    <Compile Include="Rest\Controls\DefinedValuePickerGetDefinedValuesOptionsBag.cs" />
+    <Compile Include="Rest\Controls\IconPickerGetIconLibrariesOptionsBag.cs" />
     <Compile Include="Rest\Controls\EntityTagListAddEntityTagOptionsBag.cs" />
     <Compile Include="Rest\Controls\EntityTagListCreatePersonalTagOptionsBag.cs" />
     <Compile Include="Rest\Controls\EntityTagListGetAvailableTagsOptionsBag.cs" />

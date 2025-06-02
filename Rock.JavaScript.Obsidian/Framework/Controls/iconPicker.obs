@@ -1,0 +1,480 @@
+<!-- Copyright by the Spark Development Network; Licensed under the Rock Community License -->
+<template>
+    <ContentDropDownPicker v-bind="formFieldProps"
+                           :modelValue="internalValues"
+                           :showClear="showClear"
+                           @primaryButtonClicked="select"
+                           @secondaryButtonClicked="cancel"
+                           @clearButtonClicked="clear"
+                           disableAutoCloseOnPrimaryAction
+                           pickerContentBoxHeight="320px"
+                           pickerContentBoxWidth="300px"
+                           hideMainActionButtons
+                           pickerClass="icon-picker-w-fit-content"
+                           v-model:showPopup="showPopup">
+
+        <template #innerLabel>
+            <span class="selected-names"><i :class="internalValue"></i></span>
+        </template>
+
+        <template #pickerContentHeader>
+            <div class="width-full">
+                <ButtonDropDownList v-model="library" :items="[{ text: 'Tabler', value: 'ti' }, { text: 'Font Awesome', value: 'fa' }]" selectionStyle="title" disableLabel size="sm" />
+                <div class="width-full">
+                    <TextBox v-model="searchValue" size="small" placeholder="Search" />
+                </div>
+            </div>
+        </template>
+
+        <div class="d-flex gap-2 align-items-start flex-wrap">
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-envelope" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+            <button class="btn btn-default icon-picker-select-btn" @click.prevent><i class="fa fa-vuejs" /></button>
+        </div>
+
+        <template #prepend="{ isInputGroupSupported }" v-if="$slots.prepend">
+            <slot name="prepend" :isInputGroupSupported="isInputGroupSupported" />
+        </template>
+        <template #inputGroupPrepend="{ isInputGroupSupported }" v-if="$slots.inputGroupPrepend">
+            <slot name="inputGroupPrepend" :isInputGroupSupported="isInputGroupSupported" />
+        </template>
+        <template #append="{ isInputGroupSupported }" v-if="$slots.append">
+            <slot name="append" :isInputGroupSupported="isInputGroupSupported" />
+        </template>
+    </ContentDropDownPicker>
+</template>
+
+<style>
+.icon-picker-w-fit-content {
+    width: fit-content !important;
+}
+
+.icon-picker-select-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icon-picker-select-btn > i {
+    text-align: center;
+    flex: 0;
+}
+</style>
+
+<script setup lang="ts">
+    import { computed, PropType, ref, watch } from "vue";
+    import { standardRockFormFieldProps, updateRefValue, useStandardRockFormFieldProps } from "@Obsidian/Utility/component";
+    import ContentDropDownPicker from "./contentDropDownPicker.obs";
+    import Loading from "./loading.obs";
+    import TextBox from "./textBox.obs";
+    import TreeList from "./treeList.obs";
+    import RockButton from "./rockButton.obs";
+    import ButtonDropDownList from "@Obsidian/Controls/buttonDropDownList.obs";
+    import { BtnType } from "@Obsidian/Enums/Controls/btnType";
+    import { BtnSize } from "@Obsidian/Enums/Controls/btnSize";
+    import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+    import { TreeItemBag } from "@Obsidian/ViewModels/Utility/treeItemBag";
+    import { useSecurityGrantToken } from "@Obsidian/Utility/block";
+    import { useHttp } from "@Obsidian/Utility/http";
+    import { Guid } from "@Obsidian/Types";
+    import { emptyGuid, toGuidOrNull } from "@Obsidian/Utility/guid";
+    import { AccountPickerGetChildrenOptionsBag } from "@Obsidian/ViewModels/Rest/Controls/accountPickerGetChildrenOptionsBag";
+    import { AccountPickerGetParentGuidsOptionsBag } from "@Obsidian/ViewModels/Rest/Controls/accountPickerGetParentGuidsOptionsBag";
+    import { IconPickerGetIconLibrariesOptionsBag } from "@Obsidian/ViewModels/Rest/Controls/iconPickerGetIconLibrariesOptionsBag";
+    import { AccountPickerGetPreviewItemsOptionsBag } from "@Obsidian/ViewModels/Rest/Controls/accountPickerGetPreviewItemsOptionsBag";
+
+    const props = defineProps({
+        ...standardRockFormFieldProps,
+
+        modelValue: {
+            type: Object as PropType<ListItemBag | ListItemBag[]>,
+            required: true
+        },
+    });
+
+    const emit = defineEmits<{
+        (e: "update:modelValue", value: ListItemBag | ListItemBag[] | null): void
+    }>();
+
+    // #region Values and Computed Values
+
+    const library = ref("fa");
+
+    // Values based off the current model value
+    const valuesAsArray = computed(() => forceToArray(props.modelValue, props.multiple));
+    /** The names of the currently selected items. */
+    const selectedNames = computed<string>(() => valuesAsArray.value.map(v => v.text).join(", "));
+    /** The Guids of the selected items */
+    const selectedGuids = computed<Guid[]>(() => valuesAsArray.value.map(v => toGuidOrNull(v.value)).filter(v => v !== null).map(v => v as Guid));
+
+    // Internal values based off current selections in the picker prior to hitting "Select"
+    const internalValues = ref<Guid[]>(valuesAsArray.value.map(v => toGuidOrNull(v.value)).filter(v => v !== null).map(v => v as Guid));
+
+    // Watch for changes to the selected values from the parent control and update our internal values to match.
+    watch([() => props.modelValue, () => props.multiple], (oldValues, newValues) => {
+        updateRefValue(internalValues, valuesAsArray.value.map(v => toGuidOrNull(v.value)).filter(v => v !== null).map(v => v as Guid));
+
+        // If the "multiple" property changed, force update the model value.
+        if (newValues[1] !== oldValues[1]) {
+            updateModelValue();
+        }
+    });
+
+    /** Updates the model value from our internal value. */
+    async function updateModelValue(selectAll = false): Promise<void> {
+        if (selectAll) {
+            emit("update:modelValue", flatItems.value.map(({ value, text }) => ({ value, text })));
+            return;
+        }
+
+        if (!internalValues.value || internalValues.value.length == 0) {
+            emit("update:modelValue", props.multiple ? [] : null);
+            return;
+        }
+        else {
+            await getRootItems();
+        }
+
+        if (props.multiple) {
+            const newModelValue = flatItems.value
+                .filter(i => i.value && internalValues.value.includes(i.value))
+                .map(i => ({ value: i.value, text: i.text }));
+
+            emit("update:modelValue", newModelValue);
+            return;
+        }
+
+        const guid = internalValues.value[0];
+        if (guid) {
+            const value = flatItems.value.find(i => i.value == guid);
+            emit("update:modelValue", value ? { value: value.value, text: value.text } : null);
+        }
+        else {
+            emit("update:modelValue", null);
+        }
+    }
+
+    // #endregion
+
+
+    // #region Overall Picker
+
+    /** Will contain the value true if the popup tree list should be shown. */
+    const showPopup = ref(false);
+
+    /** Determines if the clear button should be shown. */
+    const showClear = computed((): boolean => {
+        return valuesAsArray.value.length > 0;
+    });
+
+    const formFieldProps = useStandardRockFormFieldProps(props);
+
+    const isLoading = ref(false);
+    const securityGrantToken = useSecurityGrantToken();
+    const http = useHttp();
+
+    let timeout: ReturnType<typeof setTimeout>;
+    function setLoading(val: boolean): void {
+        if (val) {
+            timeout = setTimeout(() => isLoading.value = val, 100);
+        }
+        else {
+            clearTimeout(timeout);
+            isLoading.value = val;
+        }
+    }
+
+    // #endregion
+
+    /**
+     * Gets the child items of the given parent (or root if no parent given) from the server.
+     *
+     * @param parentGuid The parent item whose children are retrieved.
+     * @param refetch If false, don't fetch data we already have, otherwise fetch and overwrite our data
+     */
+    async function getItems(parentNode: TreeItemBag | null, refetch: boolean, loadFullTree = false): Promise<void> {
+        if (
+            // We want the full tree, so we need to refetch from the root
+            loadFullTree ||
+            // We're told to refetch the root nodes
+            (refetch && !parentNode) ||
+            // We're getting root items and don't have any root items
+            (!parentNode && (!treeItems.value || treeItems.value.length == 0))
+        ) {
+            const timeout = setTimeout(() => {
+                treeItems.value = [{
+                    isActive: true,
+                    iconCssClass: "fa fa-spinner fa-spin",
+                    isFolder: false,
+                    hasChildren: false
+                }];
+            }, 150);
+
+            try {
+                treeItems.value = await fetchItems(undefined, loadFullTree);
+                clearTimeout(timeout);
+            }
+            catch (e) {
+                clearTimeout(timeout);
+                treeItems.value = [];
+            }
+        }
+        else if (
+            // We're told to refetch child nodes
+            (refetch && parentNode) ||
+            // We're getting child nodes that don't already exist
+            (parentNode && (!parentNode.children || parentNode.children.length == 0))
+        ) {
+            const timeout = setTimeout(() => {
+                parentNode.children = [{
+                    isActive: true,
+                    iconCssClass: "fa fa-spinner fa-spin",
+                    isFolder: false,
+                    hasChildren: false
+                }];
+            }, 150);
+            try {
+                parentNode.children = await fetchItems(parentNode.value);
+                clearTimeout(timeout);
+            }
+            catch (e) {
+                clearTimeout(timeout);
+                parentNode.children = null;
+            }
+        }
+
+        // If we're getting the root elements and we have a selected page, we also want to grab
+        // all the parent pages so we can pre-load the entire hierarchy to the selected page
+        if (!parentNode && !loadFullTree && internalValues.value?.length > 0) {
+            await getHierarchyToSelectedItems(refetch);
+        }
+    }
+
+    /**
+     * Does the actual heavy work of fetching items from the server.
+     */
+    async function fetchItems(parentGuid?: Guid | null, loadFullTree = false): Promise<TreeItemBag[]> {
+        const options: IconPickerGetIconLibrariesOptionsBag = {
+            securityGrantToken: securityGrantToken.value
+        };
+        const response = await http.post<ListItemBag[]>("/api/v2/Controls/IconPickerGetIconLibraries", undefined, options);
+
+        if (response.isSuccess && response.data) {
+            return response.data;
+        }
+        else {
+            console.error("Error fetching items from server", response.errorMessage);
+            return [];
+        }
+    }
+
+    /**
+     * Fill in pages to the depth of the selected page
+     */
+    async function getHierarchyToSelectedItems(refetch: boolean): Promise<void> {
+        let parentGuids: Guid[] = [];
+
+        if (refetch) {
+            // Fetch the whole tree we need regardless of what we already have fetched
+            parentGuids = await getParentList(internalValues.value);
+        }
+        else {
+            // Figure out which selected items we don't already have
+            const unFetchedSelectedGuids = internalValues.value.filter(guid => {
+                // Return true if we didn't find a node with that Guid
+                return !flatItems.value.find(i => i.value == guid);
+            });
+
+            if (unFetchedSelectedGuids.length > 0) {
+                parentGuids = await getParentList(unFetchedSelectedGuids);
+
+                // Filter out the parents we already have the child data for
+                parentGuids = parentGuids.filter(guid => {
+                    // Return true if we don't already have this parent node
+                    return !flatItems.value.find(i => i.value == guid && i.children?.length);
+                });
+            }
+        }
+
+        if (parentGuids.length == 0) {
+            // Selected accounts have no parents or we already have all the parent data, so we're done.
+            return;
+        }
+
+        const childLists = await Promise.all(parentGuids.map(guid => fetchItems(guid)));
+
+        parentGuids.forEach((parentGuid, i) => {
+            const parentPage: TreeItemBag | undefined = flatItems.value.find(i => i.value == parentGuid);
+            if (parentPage) {
+                parentPage.children = childLists[i];
+            }
+        });
+    }
+
+    /**
+     * Get the hierarchical list of parent pages of the selectedGuid
+     *
+     * @returns A list of GUIDs of the parent pages
+     */
+    async function getParentList(guids: string[]): Promise<Guid[]> {
+        const options: AccountPickerGetParentGuidsOptionsBag = {
+            guids: guids?.map(g => toGuidOrNull(g)).filter(g => g !== null).map(g => g as Guid),
+            securityGrantToken: securityGrantToken.value
+        };
+        const url = "/api/v2/Controls/AccountPickerGetParentGuids";
+        const response = await http.post<Guid[]>(url, undefined, options);
+
+        if (response.isSuccess && response.data) {
+            return response.data;
+        }
+        else {
+            console.error("Error", response.errorMessage);
+            return [];
+        }
+    }
+
+    /**
+     * Get the tree items at the root level
+     */
+    async function getRootItems(refetch = false, loadFullTree = false): Promise<void> {
+        return getItems(null, refetch, loadFullTree);
+    }
+
+    /**
+     * Get the tree items that are children of the given item
+     */
+    async function getChildItems(item: TreeItemBag, refetch = false): Promise<void> {
+        return getItems(item, refetch);
+    }
+
+    // When any of the criteria for which data to fetch changes, refetch the tree
+    watch(() => [props.activeOnly, props.displayPublicName, includeInactive.value], () => {
+        getRootItems(true);
+    });
+
+    // When we select new values, make sure they're in the tree
+    watch(selectedGuids, (): void => {
+        getRootItems(false);
+    });
+
+    // The picker should select on item click when we are not selecting multiple and we are not in search mode.
+    watch(internalValues, (): void => {
+        if (!props.multiple && mode.value !== "search") {
+            select();
+        }
+    });
+
+    // #endregion
+
+
+    // #region Search View
+
+    const searchValue = ref("");
+    const searchItems = ref<ListItemBag[]>([]);
+
+    /**
+     * Get the hierarchical list of parent pages of the selectedGuid
+     *
+     * @returns A list of GUIDs of the parent pages
+     */
+    async function search(): Promise<void> {
+        setLoading(true);
+        mode.value = "search";
+        const options: IconPickerGetIconLibrariesOptionsBag = {
+            securityGrantToken: securityGrantToken.value
+        };
+
+        try {
+            const response = await http.post<ListItemBag[]>("/api/v2/Controls/IconPickerGetIconLibraries", undefined, options);
+
+            if (response.isSuccess && response.data != null) {
+                searchItems.value = response.data.map(item => {
+                    return {
+                        text: item.text,
+                        value: item.value,
+                        category: item.category?.replace(/\^/gi, "<i class=\"fa fa-chevron-right px-1\" aria-hidden=\"true\"></i>")
+                    };
+                });
+            }
+            else {
+                searchItems.value = [];
+            }
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    // #endregion
+    getRootItems();
+</script>

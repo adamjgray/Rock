@@ -50,7 +50,7 @@
                             </div>
 
                             <!-- Actions Buttons -->
-                            <div class="picker-actions">
+                            <div class="picker-actions" v-if="!hideMainActionButtons || $slots.customPickerActions">
                                 <!-- Main Action Buttons: Overridable via `mainPickerActions` slot, or just configure with props -->
                                 <slot name="mainPickerActions" v-if="!hideMainActionButtons">
                                     <RockButton :btnSize="selectButton.size" :btnType="selectButton.type" class="picker-btn" @click.prevent.stop="onAction('primary')">
