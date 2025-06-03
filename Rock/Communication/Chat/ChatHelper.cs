@@ -3679,7 +3679,10 @@ namespace Rock.Communication.Chat
                         gm.Person.IsDeceased,
                         gm.IsArchived,
                         IsGroupActive = gm.Group.IsActive,
-                        IsGroupArchived = gm.Group.IsArchived
+                        IsGroupArchived = gm.Group.IsArchived,
+
+                        // For now, hard code this based on the group type.
+                        GroupChatNotificationMode = gm.Group.GroupTypeId == ChatSharedChannelGroupTypeId ? ChatNotificationMode.Mentions : ChatNotificationMode.AllMessages
                     } )
                     .GroupBy( gm => new
                     {
@@ -3760,6 +3763,7 @@ namespace Rock.Communication.Chat
                         rockChatChannelMember.IsDeceased = memberToSync.IsDeceased;
                         rockChatChannelMember.ShouldDelete = false;
                         rockChatChannelMember.ShouldIgnore = false;
+                        rockChatChannelMember.PushNotificationMode = memberToSync.GroupChatNotificationMode;
                     }
                 }
 
@@ -3859,7 +3863,8 @@ namespace Rock.Communication.Chat
                 ChatUserKey = chatUserKey,
                 Role = rockChatChannelMember.ChatRole.GetDescription(),
                 IsChatMuted = rockChatChannelMember.IsChatMuted,
-                IsChatBanned = rockChatChannelMember.IsChatBanned
+                IsChatBanned = rockChatChannelMember.IsChatBanned,
+                PushNotificationMode = rockChatChannelMember.PushNotificationMode
             };
         }
 
