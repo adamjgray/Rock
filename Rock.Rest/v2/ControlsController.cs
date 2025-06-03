@@ -6322,7 +6322,7 @@ namespace Rock.Rest.v2
                 var definedType = DefinedTypeCache.Get( Rock.SystemGuid.DefinedType.ICON_LIBRARIES );
                 var grant = SecurityGrant.FromToken( options.SecurityGrantToken );
 
-                if ( definedType == null || !definedType.IsAuthorized( Rock.Security.Authorization.VIEW, RockRequestContext.CurrentPerson ) || grant?.IsAccessGranted( definedType, Security.Authorization.VIEW ) == false )
+                if ( definedType == null || ( !definedType.IsAuthorized( Rock.Security.Authorization.VIEW, RockRequestContext.CurrentPerson ) && grant?.IsAccessGranted( definedType, Security.Authorization.VIEW ) == false ) )
                 {
                     return NotFound();
                 }
