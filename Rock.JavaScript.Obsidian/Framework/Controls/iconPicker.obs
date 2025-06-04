@@ -37,8 +37,8 @@
 
             <div class="d-flex gap-2 align-items-start flex-wrap">
                 <button v-for="iconOption in iconOptions" :key="iconOption.StyleClass ?? ''"
-                        class="btn icon-picker-select-btn"
-                        :class="icon === iconOption ? 'btn-primary' : 'btn-default'"
+                        class="btn btn-default icon-picker-select-btn"
+                        :class="icon === iconOption ? 'active' : ''"
                         @click.prevent="selectIcon(iconOption)"
                         :title="iconOption.Title ?? ''"
                         v-html="iconOption.IconSvg ?? ''">
@@ -78,11 +78,15 @@
 
 .icon-picker-select-btn > :deep(svg),
 .selected-icon :deep(svg),
-.selected-icon :deep(i) {
+.selected-icon i {
     height: 16px;
     width: 16px;
     margin: 4px auto;
     flex: 0 1 auto;
+}
+
+.selected-icon i {
+    display: inline-block;
 }
 
 .custom-box-wrapper {
@@ -128,7 +132,7 @@
     const library = ref("");
     const icon = ref<IconBag>();
 
-    const libraryPrefix = ref("");
+    const libraryPrefixes = ref<Record<string, string>>({});
     const libraries = ref<ListItemBag[]>([]);
     const icons = ref<Record<string, IconBag[]>>({});
 
@@ -144,6 +148,10 @@
 
     const iconsForSelectedLibrary = computed(() => {
         return icons.value[library.value] ?? [];
+    });
+
+    const libraryPrefix = computed(() => {
+        return libraryPrefixes.value[library.value] ?? "";
     });
 
     const iconOptions = computed((): IconBag[] => {
@@ -177,6 +185,7 @@
     function selectIcon(value: IconBag): void {
         icon.value = value;
 
+        customIcon.value = "";
         searchValue.value = "";
         showPopup.value = false;
     }
@@ -185,9 +194,10 @@
         if (useCustom.value) {
             return customIcon.value?.trim() ?? "";
         }
-        else {
-            return ((libraryPrefix.value ?? "") + " " + (icon.value?.StyleClass ?? "")).trim();
+        else if (icon.value?.StyleClass) {
+            return ((libraryPrefix.value ?? "") + " " + icon.value.StyleClass).trim();
         }
+        return "";
     });
 
     watch(internalModelValue, (newValue) => {
@@ -219,6 +229,7 @@
                 icon.value = iconsForSelectedLibrary.value.find(i => i.StyleClass === customIcon.value) ?? undefined;
             }
             else {
+                // We can always fall back to a custom icon.
                 library.value = "custom";
                 icon.value = undefined;
                 customIcon.value = newValue.trim();
@@ -228,6 +239,14 @@
             clearValue();
         }
     }, { immediate: true });
+
+
+    watch(library, () => {
+        icon.value = undefined;
+        if (iconsForSelectedLibrary.value.length == 0) {
+            getIcons();
+        }
+    });
 
     function clearValue(): void {
         icon.value = undefined;
@@ -239,7 +258,7 @@
 
     // #region Field Control State
 
-    const showPopup = ref(true);
+    const showPopup = ref(false);
     const isRequired = computed((): boolean => {
         return containsRequiredRule(props.rules);
     });
@@ -317,7 +336,7 @@
 
             if (response.isSuccess && response.data) {
                 icons.value[library.value] = response.data.Icons ?? [];
-                libraryPrefix.value = response.data.StyleClassPrefix ?? "";
+                libraryPrefixes.value[library.value] = response.data.StyleClassPrefix ?? "";
             }
             else {
                 console.error("Error fetching items from server", response.errorMessage);
@@ -330,12 +349,6 @@
             icons.value[library.value] = [];
         }
     }
-
-    watch(library, () => {
-        if (iconsForSelectedLibrary.value.length == 0) {
-            getIcons();
-        }
-    });
 
     getIconLibraries();
 
