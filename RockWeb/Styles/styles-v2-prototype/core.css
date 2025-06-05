@@ -3669,7 +3669,7 @@ input[type=button].btn-block {
   display: block;
   width: 0.2222em;
   min-height: 2px;
-  background: rgb(153.1818181818, 186.7355371901, 216.8181818182);
+  background: #99bbd9;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .badge-disc .badge-disc-chart li span {
@@ -7561,7 +7561,7 @@ input[type=text].chosen-focus-input {
 
 .jcrop-holder img, img.jcrop-preview {
   max-width: none;
-} 
+}
 .breadcrumb {
   padding: var(--spacing-xsmall) var(--spacing-medium);
   list-style: none;
@@ -15154,7 +15154,7 @@ textarea:focus,
 }
 
 /*
-    DOCUMENTATION: 
+    DOCUMENTATION:
 
     This is copy from ion.rangeSlider.Rock.css.
     Located: `RockWeb\Scripts\ion.rangeSlider\css\ion.rangeSlider.Rock.css`.
@@ -15165,7 +15165,7 @@ textarea:focus,
 /*
     MODIFICATION MADE:
 
-    We wrap all the style under .form-group { } to win in specificity 
+    We wrap all the style under .form-group { } to win in specificity
     over the ion.rangeSlider.Rock.css stylesheet added by the controls.
 */
 .form-group .irs {
@@ -15382,10 +15382,10 @@ textarea:focus,
   background: var(--color-interface-soft);
 }
 
-/** 
+/**
 *   NOTE:
 *
-*   The `--initial-block-height` value is dynamically 
+*   The `--initial-block-height` value is dynamically
 *   set by a RockBlockType.cs file.
 **/
 .block-content > .obsidian-block-has-placeholder {
@@ -16071,7 +16071,7 @@ textarea:focus,
   opacity: 0.4;
 }
 
-.grid-columncommand .btn:hover {
+.grid-obsidian .grid-columncommand .btn:hover {
   opacity: 1;
 }
 
@@ -17771,8 +17771,8 @@ iframe.file-browser {
 }
 
 .avatar-sms {
-  color: rgb(207.7957446809, 94.3659574468, 16.2042553191) !important;
-  background-color: rgb(252.6713617021, 236.370893617, 225.1386382979) !important;
+  color: #d05e10 !important;
+  background-color: #fdece1 !important;
 }
 
 .avatar-push {
@@ -19451,8 +19451,8 @@ iframe.file-browser {
   color: color-mix(in srgb, var(--color-interface-medium) 100%, #000 10%);
 }
 .group-scheduler-v2 .circle-plus:active {
-  color: rgb(106.875, 106.875, 109.125);
-  border-color: rgb(173.5, 173.5, 173.5);
+  color: #6b6b6d;
+  border-color: #aeaeae;
 }
 .group-scheduler-v2 .resource-notes {
   font-size: var(--font-size-xsmall);
