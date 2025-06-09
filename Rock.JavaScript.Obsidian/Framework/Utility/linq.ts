@@ -592,6 +592,21 @@ export class Enumerable<T> {
     }
 
     /**
+     * Concatenates the current sequence with another sequence.
+     * @param second - The second sequence to concatenate.
+     * @returns A new Enumerable containing the concatenated elements.
+     */
+    concat(second: Iterable<T>): Enumerable<T> {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const self = this;
+
+        return new Enumerable(function* () {
+            yield* self;
+            yield* second;
+        });
+    }
+
+    /**
      * Returns the number of elements in the sequence.
      * @returns The total number of elements.
      */
@@ -614,6 +629,46 @@ export class Enumerable<T> {
         }
 
         return total;
+    }
+
+    /**
+     * Returns the first element from the collection if there are any elements.
+     * Otherwise will throw an exception.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(): T;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * in the collection if any remain. Otherwise throws an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(predicate: PredicateFn<T>): T;
+
+    /**
+     * Filters the list by the predicate and then returns the first element
+     * in the collection if any remain. Otherwise throws an exception.
+     *
+     * @param predicate The predicate to filter the elements by.
+     *
+     * @returns The first element in the collection.
+     */
+    public first(predicate?: PredicateFn<T>): T {
+        let i = 0;
+
+        for (const item of this) {
+            if (!predicate || predicate(item, i)) {
+                return item;
+            }
+
+            i++;
+        }
+
+        throw noElementsFound;
     }
 
     /**
@@ -651,21 +706,23 @@ export class Enumerable<T> {
         const self = this;
 
         return new Enumerable(function* () {
-            const map = new Map<TKey, T[]>();
+            const map = new Map<string, { key: TKey, values: T[] }>();
 
             for (const item of self) {
                 const key = keySelector(item);
-                const group = map.get(key);
+                const keyString = JSON.stringify(key); // acts like GetHashCode + ToString()
 
-                if (group) {
-                    group.push(item);
+                const entry = map.get(keyString);
+
+                if (entry) {
+                    entry.values.push(item);
                 }
                 else {
-                    map.set(key, [item]);
+                    map.set(keyString, { key, values: [item] });
                 }
             }
 
-            for (const [key, values] of map) {
+            for (const { key, values } of map.values()) {
                 yield new GroupedEnumerable<TKey, T>(key, values);
             }
         });
@@ -1025,7 +1082,7 @@ class OrderedEnumerable<T> extends Enumerable<T> {
     }
 }
 
-class GroupedEnumerable<TKey, TElement> extends Enumerable<TElement> {
+export class GroupedEnumerable<TKey, TElement> extends Enumerable<TElement> {
     constructor(public readonly key: TKey, elements: Iterable<TElement>
     ) {
         super(() => elements);

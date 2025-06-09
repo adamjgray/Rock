@@ -1,0 +1,123 @@
+<template>
+    <Panel title="Generate Sample Recurring Flow"
+           type="block"
+           iconCssClass="fa fa-calendar-plus">
+        <p>
+            This tool will generate a sample recurring flow that can be used to test the performance of recurring flows.
+        </p>
+
+        <RockForm :id="recurringFormId" @submit="onGenerateRecurringFlow">
+            <NotificationBox v-if="generateRecurringFlowError"
+                             alertType="danger"
+                             v-html="generateRecurringFlowError" />
+
+            <ScheduleBuilder v-model="iCalendarContent"
+                             label="Schedule Builder"
+                             :rules="['required', validateRecurringSchedule]" />
+
+
+            <DataViewPicker v-model="targetAudienceDataView"
+                            :entityTypeGuid="EntityType.Person"
+                            help="Filters the audience for this flow based on the selected data view. Only people in this data view will receive messages when the flow is active."
+                            label="Target Audience"
+                            rules="required" />
+
+            <DropDownList v-model="smsFromSystemNumberGuidOrEmptyString"
+                          help="The number to originate message from (configured under Admin Tools > Communications > System Phone Numbers)."
+                          :items="config.smsFromSystemPhoneNumbers ?? []"
+                          label="From Phone"
+                          rules="required"
+                          :showBlankItem="false" />
+        </RockForm>
+
+        <template #footerActions>
+            <RockButton btnType="primary"
+                        :disabled="isGeneratingRecurringFlow"
+                        :form="recurringFormId"
+                        type="submit">Generate Sample Recurring Flow</RockButton>
+        </template>
+    </Panel>
+</template>
+
+<script setup lang="ts">
+    import { ref } from "vue";
+    import DataViewPicker from "@Obsidian/Controls/dataViewPicker.obs";
+    import DropDownList from "@Obsidian/Controls/dropDownList.obs";
+    import NotificationBox from "@Obsidian/Controls/notificationBox.obs";
+    import Panel from "@Obsidian/Controls/panel.obs";
+    import RockButton from "@Obsidian/Controls/rockButton.obs";
+    import RockForm from "@Obsidian/Controls/rockForm.obs";
+    import ScheduleBuilder from "@Obsidian/Controls/scheduleBuilder.obs";
+    import { EntityType } from "@Obsidian/SystemGuids/entityType";
+    import { useConfigurationValues, useInvokeBlockAction } from "@Obsidian/Utility/block";
+    import { ValidationResult, ValidationRuleFunction } from "@Obsidian/ValidationRules";
+    import { Calendar } from "@Obsidian/Utility/internetCalendar";
+    import { areEqual, newGuid } from "@Obsidian/Utility/guid";
+    import { ListItemBag } from "@Obsidian/ViewModels/Utility/listItemBag";
+
+    const config = useConfigurationValues<{ smsFromSystemPhoneNumbers: ListItemBag[] | null | undefined; }>();
+    const invokeBlockAction = useInvokeBlockAction();
+    const recurringFormId = `recurringFlowForm-${newGuid()}`;
+
+    // #region Values
+
+    const isGeneratingRecurringFlow = ref<boolean>(false);
+    const generateRecurringFlowError = ref<string | null | undefined>();
+    const iCalendarContent = ref<string>("");
+    const targetAudienceDataView = ref<ListItemBag | null | undefined>();
+    const smsFromSystemNumberGuidOrEmptyString = ref<string>(config.smsFromSystemPhoneNumbers?.[0]?.value ?? "");
+
+    // #endregion Values
+
+    async function onGenerateRecurringFlow(): Promise<void> {
+        if (isGeneratingRecurringFlow.value) {
+            alert("A sample recurring flow is already being generated. Please wait for it to complete.");
+            return;
+        }
+
+        try {
+            generateRecurringFlowError.value = null;
+            isGeneratingRecurringFlow.value = true;
+            const result = await invokeBlockAction("GenerateRecurringFlow", {
+                iCalendarContent: iCalendarContent.value,
+                targetAudienceDataView: targetAudienceDataView.value,
+                smsFromSystemPhoneNumber: config.smsFromSystemPhoneNumbers?.find(p => areEqual(p.value, smsFromSystemNumberGuidOrEmptyString.value))
+            });
+
+            if (result.isSuccess) {
+                alert("Sample recurring flow generated successfully. Check console for response data.");
+                console.log("Sample recurring flow generated:", result.data);
+            }
+            else {
+                generateRecurringFlowError.value = `Error generating sample recurring flow: ${result.errorMessage}`;
+            }
+        }
+        catch (e) {
+            generateRecurringFlowError.value = `Error while generating sample recurring flow: ${e}`;
+        }
+        finally {
+            isGeneratingRecurringFlow.value = false;
+        }
+    }
+
+    // #region Functions
+
+    const validateRecurringSchedule: ValidationRuleFunction = (value: unknown): ValidationResult => {
+        if (!value
+            || typeof value !== "string") {
+            return true;
+        }
+
+        // Validate that the schedule is not a one-time schedule.
+        const calendar = new Calendar(value);
+        const event = calendar.events?.[0];
+
+        if (event?.recurrenceRules?.length || event?.recurrenceDates?.length) {
+            return true;
+        }
+
+        return "must be recurring";
+    };
+
+    // #endregion Functions
+</script>
