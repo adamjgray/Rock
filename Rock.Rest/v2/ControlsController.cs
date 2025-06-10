@@ -3763,13 +3763,13 @@ namespace Rock.Rest.v2
 
                     emailSectionService.Add( emailSection );
                 }
-                
+
                 var categoryGuid = options.Category?.Value.AsGuidOrNull();
                 var category = categoryGuid.HasValue ? new CategoryService( rockContext ).Get( categoryGuid.Value ) : null;
 
                 var thumbnailBinaryFileGuid = options.ThumbnailBinaryFile?.Value.AsGuidOrNull();
                 var thumbnailBinaryFile = thumbnailBinaryFileGuid.HasValue ? new BinaryFileService( rockContext ).Get( thumbnailBinaryFileGuid.Value ) : null;
-                
+
                 emailSection.Category = category;
                 emailSection.Guid = options.Guid;
                 emailSection.Name = options.Name;
@@ -3992,7 +3992,7 @@ namespace Rock.Rest.v2
                 UsageSummary = emailSection.UsageSummary
             };
         }
-        
+
         private static ListItemBag OccurrenceAsListItemBag( AttendanceOccurrence attendanceOccurrence )
         {
             return attendanceOccurrence == null ? null : new ListItemBag
@@ -4001,8 +4001,8 @@ namespace Rock.Rest.v2
                 Value = $"{attendanceOccurrence.Id}|{attendanceOccurrence.GroupId}|{attendanceOccurrence.LocationId}|{attendanceOccurrence.ScheduleId}|{attendanceOccurrence.OccurrenceDate:s}",
                 Text = attendanceOccurrence.OccurrenceDate.ToString( "dddd, MMMM d, yyyy" )
             };
-        } 
-        
+        }
+
         private static EmailEditorAttendanceOccurrenceBag OccurrenceAsBag( AttendanceOccurrence attendanceOccurrence )
         {
             return attendanceOccurrence == null ? null : new EmailEditorAttendanceOccurrenceBag
@@ -4014,7 +4014,7 @@ namespace Rock.Rest.v2
                 ScheduleId = attendanceOccurrence.ScheduleId,
                 OccurrenceDate = $"{attendanceOccurrence.OccurrenceDate:s}"
             };
-        } 
+        }
 
         #endregion
 
@@ -7013,7 +7013,7 @@ namespace Rock.Rest.v2
             }
 
             var searchedFields = GetMergeFields( options.AdditionalFields, GetPerson() )
-                .Where( mf => mf.Text.Contains( options.SearchTerm ) )
+                .Where( mf => mf.Text.IndexOf( options.SearchTerm, StringComparison.OrdinalIgnoreCase ) >= 0 )
                 .ToList();
 
             return Ok( searchedFields );
